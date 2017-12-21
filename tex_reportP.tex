@@ -1,0 +1,56 @@
+\newcommand{\lsd}[1] {\texttt{#1}}
+
+\newcommand{\hr}[1]{\hyperref[#1]{\lsd{#1}}}
+\newcommand{\lrH}[1]{\subsection{\lsd{#1}}}
+\newcommand{\lrI}[1]{\paragraph{\lsd{#1}}}
+\lrH{Root} \label{Root} 
+\textbf{Containing}: \hr{Department}.
+
+Description: (no description available)
+\lrH{Department} \label{Department} 
+\textbf{Contained in}: \hr{Root}
+
+\textbf{Containing}: \hr{Candidate}, \hr{Prof}.
+
+\lrI{AvQuality} \label{AvQuality}(variable, 0 lags). (no description available)
+.
+ \lrI{Avx} \label{Avx}(parameter). (no description available).
+ \lrI{AvQVI} \label{AvQVI}(parameter). (no description available).
+ \lrI{Hiring} \label{Hiring}(variable, 0 lags). (no description available).
+ \lrI{Retiring} \label{Retiring}(variable, 0 lags). (no description available).
+ \lrI{QualityGenerator} \label{QualityGenerator}(function, 0 lags). (no description available).
+ \lrI{XGenerator} \label{XGenerator}(function, 0 lags). (no description available).
+ \lrI{ProbGenerator} \label{ProbGenerator}(function, 0 lags). (no description available).
+ \lrI{ExpSelection} \label{ExpSelection}(parameter). (no description available)
+.
+ \lrI{ErrorRange} \label{ErrorRange}(parameter). (no description available)
+.
+ \lrI{ExpPowerLaw} \label{ExpPowerLaw}(parameter). (no description available)
+.
+ \lrI{RetiringAge} \label{RetiringAge}(parameter). (no description available).
+ \lrI{QVIstock} \label{QVIstock}(parameter). (no description available)
+.
+ \lrI{QVIGenerator} \label{QVIGenerator}(function, 0 lags). (no description available).
+ \lrI{Statistics} \label{Statistics}(variable, 0 lags). (no description available).
+ \lrI{AvAvQuality} \label{AvAvQuality}(parameter). (no description available).
+ \lrI{AvAvx} \label{AvAvx}(parameter). (no description available).
+ \lrI{AvAvQVI} \label{AvAvQVI}(parameter). (no description available).
+ \lrH{Candidate} \label{Candidate} 
+\textbf{Contained in}: \hr{Department}
+
+\lrI{CQuality} \label{CQuality}(parameter). (no description available).
+ \lrI{Cx} \label{Cx}(parameter). (no description available).
+ \lrI{Prob} \label{Prob}(parameter). (no description available).
+ \lrI{CQVI} \label{CQVI}(parameter). (no description available).
+ \lrH{Prof} \label{Prof} 
+\textbf{Contained in}: \hr{Department}
+
+\lrI{Quality} \label{Quality}(parameter). (no description available).
+ \lrI{x} \label{x}(parameter). (no description available).
+ \lrI{Age} \label{Age}(variable, 1 lags). (no description available).
+ \lrI{QVI} \label{QVI}(parameter). (no description available).
+ \section{Values relevants to initialize}
+(object \hr{Department}) \hr{ExpSelection} \newline 
+(object \hr{Department}) \hr{ErrorRange} \newline 
+(object \hr{Department}) \hr{ExpPowerLaw} \newline 
+(object \hr{Department}) \hr{QVIstock} \newline 

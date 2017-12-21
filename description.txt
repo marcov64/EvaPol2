@@ -1,0 +1,8 @@
+Evalutuation and Policy
+ver. 0.2
+Added prof. strategy to choose between improving quality or indicators.
+
+OLD
+Indicators are indirect measures of otherwise unobservable features such as "quality of researchers". Indicators necessarily involve an error in respect of actual quality, whatever it may turn to be. The consequence of this error when using the indicator in place of the unobservable quality may be irrelevant or enormous, depending on the use of the indicator and the dimension of the error.
+
+
