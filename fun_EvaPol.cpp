@@ -54,9 +54,30 @@ for(v[2]=0; v[2]<v[1]; v[2]++)
   cur=RNDDRAW("Candidate","Prob");
   cur1=ADDOBJ("Prof");
   WRITELS(cur1,"Age",0, t);
-  WRITES(cur1,"Quality",VS(cur, "CQuality"));
-  WRITES(cur1,"x",VS(cur, "Cx"));  
-  WRITES(cur1,"QVI",VS(cur, "CQVI"));     
+  WRITES(cur1,"Quality",v[4]=VS(cur, "CQuality"));
+  WRITES(cur1,"x",v[5]=VS(cur, "Cx"));  
+  WRITES(cur1,"QVI",VS(cur, "CQVI"));
+   
+  v[10]=INCR("PSumQ",v[4]);
+  v[12]=INCR("PSumQ2",v[4]*v[4]);
+  v[13]=INCR("PSumX",v[5]);
+  v[14]=INCR("PSumX2",v[5]*v[5]);
+  v[15]=INCR("PSteps",1);
+  v[16]=INCR("PSumQX",v[4]*v[5]);
+  
+  v[17]=0;
+  v[18]=(v[15]*v[16]-v[10]*v[13]);
+  v[19]=(v[15]*v[12]-v[10]*v[10]);
+  v[20]=(v[15]*v[14]-v[13]*v[13]);
+  if(v[15]>1)
+   {
+    if(v[20]*v[19]<=0)
+      INTERACT("merda", v[20]*v[19]);  
+    else  
+      v[17]=v[18]/sqrt(v[19]*v[20]);
+   } 
+  WRITE("PCorrQX",v[17]);
+      
  }
 
 RESULT(1 )
@@ -169,6 +190,25 @@ WRITES(c,"CQuality",v[4]);
 v[5]=max(0,min(1,v[2] -v[1]*v[0]));
 WRITES(c,"Cx",v[5]);
 
+v[10]=INCR("SumQ",v[4]);
+v[12]=INCR("SumQ2",v[4]*v[4]);
+v[13]=INCR("SumX",v[5]);
+v[14]=INCR("SumX2",v[5]*v[5]);
+v[15]=INCR("Steps",1);
+v[16]=INCR("SumQX",v[4]*v[5]);
+
+v[17]=0;
+v[18]=(v[15]*v[16]-v[10]*v[13]);
+v[19]=(v[15]*v[12]-v[10]*v[10]);
+v[20]=(v[15]*v[14]-v[13]*v[13]);
+if(v[15]>1)
+ {
+  if(v[20]*v[19]<=0)
+    INTERACT("merda", v[20]*v[19]);  
+  else  
+    v[17]=v[18]/sqrt(v[19]*v[20]);
+ } 
+WRITE("CorrQX",v[17]);
 RESULT(v[1] )
 
 MODELEND
