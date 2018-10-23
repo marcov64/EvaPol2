@@ -175,11 +175,6 @@ v[2]=(pow(v[1],v[4])-pow(v[0],v[4]))*RND+pow(v[0],v[4]);
 
 v[5]=pow(v[2], 1/v[4]);
 
-//v[12]=(pow(v[1],v[4])-pow(v[0],v[4]))*RND+pow(v[0],v[4]);
-//v[15]=pow(v[12], 1/v[4]);
-
-//WRITE("cazzo", v[15]);
-
 RESULT(1-v[5] )
 
 EQUATION("XGenerator")

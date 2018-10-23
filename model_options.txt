@@ -1,4 +1,4 @@
 TARGET=lsd_gnu
 FUN=fun_EvaPol
-SWITCH_CC=-g
+SWITCH_CC=-O3
 
