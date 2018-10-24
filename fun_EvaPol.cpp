@@ -140,13 +140,21 @@ Remove professors
 
 v[0]=0;
 v[1]=V("RetiringAge");
+v[2]=1;
+v[3]=v[4]=0;
 CYCLE_SAFE(cur, "Prof")
  {
+  v[5] = VS(cur, "Quality");
+  if(v[5]<v[2])
+   v[2]=v[5]; //this is the min
+
   if(v[1]<=VS(cur,"Age"))
    {v[0]++;
     DELETE(cur);
    }
  }
+
+WRITE("Threshold", v[2]);
 
 RESULT(v[0] )
 
@@ -223,6 +231,14 @@ Probability of being hired generator, representing the selection process.
 
 Since it depends on the indicator, not on the true quality.
 */
+
+v[5]=VS(c, "CQuality");
+v[6] = V("Threshold");
+if(v[5]<v[6])
+ {
+  WRITES(c, "Prob", 0);
+  END_EQUATION(0)
+ }
 
 v[0]=V("ExpSelection");
 v[1]=VS(c,"CxT");
