@@ -35,16 +35,20 @@ RESULT(v[0]/v[2] )
 EQUATION("Hiring")
 /*
 Perform the selection of new prof  to hire
-
 */
-
+v[70]=v[71]=0;
+v[1]=V("Retiring");
 CYCLE(cur, "Candidate")
  {
   v[0]=V("QualityGenerator");
   WRITES(cur,"CQuality",v[0]);
   V_CHEAT("XGenerator", cur);
-  V_CHEAT("QVIGenerator",cur);  
-  V_CHEAT("ProbGenerator",cur);  
+  V_CHEAT("QVIGenerator",cur); 
+   
+  v[72]=V_CHEAT("ProbGenerator",cur);  
+  v[70]+=v[72];
+  if(v[72]>0)
+   v[71]++;
   v[4] = VS(cur, "CQuality");
   v[5] = VS(cur, "Cx");
 
@@ -95,38 +99,29 @@ CYCLE(cur, "Candidate")
   
   WRITE("CorrQX",v[65]);
 
-v[1]=V("Retiring");
 
+WRITE("sumProb", v[70]);
+
+if(v[71]<v[1])
+ {INCR("CountFlat", 1);
+  CYCLE(cur, "Candidate")
+  {
+  	WRITES(cur, "Prob", 1);
+
+  }
+
+ }
 for(v[2]=0; v[2]<v[1]; v[2]++)
  {
+  
   cur=RNDDRAW("Candidate","Prob");
   cur1=ADDOBJ("Prof");
   WRITELS(cur1,"Age",0, t);
   WRITES(cur1,"Quality",v[4]=VS(cur, "CQualityT"));
   WRITES(cur1,"x",v[5]=VS(cur, "CxT"));  
   WRITES(cur1,"QVI",VS(cur, "CQVI"));
-   
- /*
-  v[10]=INCR("PSumQ",v[4]);
-  v[12]=INCR("PSumQ2",v[4]*v[4]);
-  v[13]=INCR("PSumX",v[5]);
-  v[14]=INCR("PSumX2",v[5]*v[5]);
-  v[15]=INCR("PSteps",1);
-  v[16]=INCR("PSumQX",v[4]*v[5]);
-  
-  v[17]=0;
-  v[18]=(v[15]*v[16]-v[10]*v[13]);
-  v[19]=(v[15]*v[12]-v[10]*v[10]);
-  v[20]=(v[15]*v[14]-v[13]*v[13]);
-  if(v[15]>1)
-   {
-    if(v[20]*v[19]<=0)
-      INTERACT("merda 1", v[20]*v[19]);  
-    else  
-      v[17]=v[18]/sqrt(v[19]*v[20]);
-   } 
-  WRITE("PCorrQX",v[17]);
-  */
+  WRITES(cur, "Prob", 0);
+
       
  }
 
@@ -154,7 +149,12 @@ CYCLE_SAFE(cur, "Prof")
    }
  }
 
-WRITE("Threshold", v[2]);
+v[5] = V("ShareThreshold");
+v[12] = V("UseAverage");
+if(v[12]==1)
+ v[2] = V("AvQuality");
+
+WRITE("Threshold", v[5]*v[2]);
 
 RESULT(v[0] )
 
@@ -169,11 +169,9 @@ RESULT(CURRENT+1 )
 EQUATION("QualityGenerator")
 /*
 Produce the quality of potential hires, distributed as a power law random variable.
-
 Power law distribution:
 x = [(x1^(n+1) - x0^(n+1))*y + x0^(n+1)]^(1/(n+1))
 where y is a uniform variate, n is the distribution power, x0 and x1 define the range of the distribution, and x is your power-law distributed variate.
-
 */
 
 v[4]=V("ExpPowerLaw")+1;
@@ -228,13 +226,14 @@ RESULT(v[3] )
 EQUATION("ProbGenerator")
 /*
 Probability of being hired generator, representing the selection process.
-
 Since it depends on the indicator, not on the true quality.
 */
 
 v[5]=VS(c, "CQuality");
 v[6] = V("Threshold");
-if(v[5]<v[6])
+v[9] = V("UseThreshold");
+
+if(v[9]==1 && v[5]<v[6])
  {
   WRITES(c, "Prob", 0);
   END_EQUATION(0)
@@ -278,8 +277,6 @@ v[13]=INCR("SumX",v[5]);
 v[14]=INCR("SumX2",v[5]*v[5]);
 v[15]=INCR("Steps",1);
 v[16]=INCR("SumQX",v[4]*v[5]);
-
-
 v[17]=0;
 v[18]=(v[15]*v[16]-v[10]*v[13]);
 v[19]=(v[15]*v[12]-v[10]*v[10]);
@@ -304,5 +301,7 @@ void close_sim(void)
 {
 
 }
+
+
 
 
